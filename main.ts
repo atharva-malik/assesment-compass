@@ -1,22 +1,55 @@
-let degrees = 0
 input.calibrateCompass()
-radio.setGroup(70)
+radio.setGroup(69)
+let north = -1
+let east = -1
+let south = -1
+let west = -1
 basic.forever(function () {
-    degrees = input.compassHeading()
-    if (degrees < 45) {
-        basic.showString("N")
-        radio.sendString("N")
-    } else if (degrees < 135) {
-        radio.sendString("E")
-        basic.showString("E")
-    } else if (degrees < 225) {
-        radio.sendString("S")
-        basic.showString("S")
-    } else if (degrees < 315) {
-        radio.sendString("W")
-        basic.showString("W")
+    if (north == -1) {
+        basic.showLeds(`
+            # . . . #
+            # # . . #
+            # . # . #
+            # . . # #
+            # . . . #
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            north = input.compassHeading()
+        }
+    } else if (east == -1) {
+        basic.showLeds(`
+            # # # # #
+            # . . . .
+            # # # # #
+            # . . . .
+            # # # # #
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            east = input.compassHeading()
+        }
+    } else if (south == -1) {
+        basic.showLeds(`
+            # # # # #
+            # . . . .
+            # # # # #
+            . . . . #
+            # # # # #
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            south = input.compassHeading()
+        }
+    } else if (west == -1) {
+        basic.showLeds(`
+            # . . . #
+            # . # . #
+            # . # . #
+            . # . # .
+            . # . # .
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            west = 0
+        }
     } else {
-        radio.sendString("N")
-        basic.showString("N")
+    	
     }
 })

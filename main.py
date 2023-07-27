@@ -1,24 +1,14 @@
-rightTrackingSensor = 0
-leftTrackingSensor = 0
-aligned = 0
+input.calibrate_compass()
+radio.set_group(69)
+north = -1
+east = -1
+south = -1
+west = -1
 
 def on_forever():
-    global leftTrackingSensor, aligned
-    if aligned == 0:
-        maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CW, 128)
-        if maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT) == 0:
-            maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CCW, 128)
-            leftTrackingSensor = 1
-            while leftTrackingSensor == 1:
-                if maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT) == 1:
-                    leftTrackingSensor = 0
-                maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CCW, 128)
-                basic.pause(100)
-                maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CW, 128)
-                maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CCW, 128)
-                if maqueen.read_patrol(maqueen.Patrol.PATROL_RIGHT) == 0 and maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT) == 0:
-                    leftTrackingSensor = 0
-                    aligned = 1
-    else:
-        maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CW, 0)
+    if north == -1:
+        if input.button_is_pressed(Button.A):
+            pass
+    elif False:
+        pass
 basic.forever(on_forever)
